@@ -23,8 +23,8 @@ const InicioSesionScreen = ({navigation}) => {
   };
 
   const handleForgotPassword = () => {
-    alert('Recuperar contraseña');
-    navigation.navigate('Recuperacion Contraseña')
+    // alert('Recuperar contraseña');
+    navigation.navigate('Recuperacion Contraseña');
     // this.props.navigation.navigate("RecuperacionContra")
     // Aqui se puede agregar la logica para recuperar la contraseña
   };
