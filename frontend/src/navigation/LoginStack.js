@@ -11,7 +11,7 @@ const LoginStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown:false}}>
         <Stack.Screen
-          name="Iniciar Sesion"
+          name="Inicio Sesion"
           component={InicioSesionScreen}
         />
         <Stack.Screen

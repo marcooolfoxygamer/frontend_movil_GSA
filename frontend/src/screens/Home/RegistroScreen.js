@@ -63,6 +63,8 @@ const RegistroScreen = ({navigation}) => {
   const validateIdentificacion = () => {
     if (!identificacion) {
       setIdentificacionError('El número de identificación es obligatorio.');
+    } else if (!/^\d+$/.test(identificacion)) {
+      setIdentificacionError('Por favor, introduce solo números.');
     } else {
       setIdentificacionError('');
     }
@@ -101,7 +103,7 @@ const RegistroScreen = ({navigation}) => {
 
       Alert.alert('¡Hecho!', 'Se ha registrado correctamente', [
         {
-          text: 'Gracias',
+          text: 'Ok',
           onPress: () => {
             setTimeout(() => {
               navigation.navigate('Iniciar Sesión');
@@ -271,11 +273,11 @@ const RegistroScreen = ({navigation}) => {
               searchPlaceholder="Buscar..."
               value={condicion}
               onFocus={() => setIsFocus(true)}
-              onBlur={() => setIsFocus(false)}
               onChange={item => {
                 setCondicion(item.value);
                 setIsFocus(false);
               }}
+              onBlur={() => {setIsFocus(false), validateCondicion()}}
             />
             { condicionError ? <View style={styles.error}>
                 <Text style={styles.errorText}>{condicionError}</Text>
