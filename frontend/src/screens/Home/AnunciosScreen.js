@@ -23,15 +23,15 @@ const AnunciosScreen = ({navigation}) => {
             // headers: {
             //   "Content-Type" : 'application/json',
             // }
-          };
-      
-          axios(config)
-          .then(function (response) {
-            setAnuncios(response.data);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        };
+    
+        axios(config)
+        .then(function (response) {
+        setAnuncios(response.data);
+        })
+        .catch(function (error) {
+        console.log(error);
+        });
     }
 
     return (

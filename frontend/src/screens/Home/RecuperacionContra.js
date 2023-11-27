@@ -30,7 +30,7 @@ const RecuperacionContra = ({navigation}) => {
           text: 'Ok',
           onPress: () => {
             setTimeout(() => {
-              navigation.navigate('Inicio Sesion');
+              navigation.navigate('Inicio sesion');
             }, 100)
           },
         }
@@ -79,7 +79,7 @@ const RecuperacionContra = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       {/* Barra de navegación */}
-      <View style={styles.container}>
+      {/* <View style={styles.container}>
         <TouchableOpacity onPress={()=>navigation.openDrawer()}>
         <Icon
             name="menu"
@@ -90,12 +90,12 @@ const RecuperacionContra = ({navigation}) => {
         source={require('../../assets/images/LogoGsA.png')}
         style={{width:37, height:40}}
         />
-      </View>
+      </View> */}
 
       {/* Barra de navegación */}
-      <View style={styles.container_vista}>
+      <View style={{flex: 1}}>
         {step === 1 && (
-          <View>
+          <View style={styles.container_vista}>
             <View style={styles.contenedor_encabezado}>
               <Text style={styles.title}>Recuperar Contraseña</Text>
               <Text style={styles.subtitle}>Bienvenid@ a nuestro formulario de recuperación de contraseñas. Por favor, digite la información que le pedimos a continuación.</Text>
@@ -104,40 +104,45 @@ const RecuperacionContra = ({navigation}) => {
             {/* <Text style={styles.title}>Recuperar Contraseña</Text>
             <View style={styles.separator} />
             <Text style={styles.subtitle}>Bienvenid@ a nuestro formulario de recuperación de contraseñas. Por favor, digite la información que le pedimos a continuación.</Text> */}
-            <TextInput
-              style={styles.input}
-              placeholder="Correo electrónico"
-              value={email}
-              onChangeText={setEmail}
-              onBlur={validateEmail}
-            />
-            {emailError && <Text style={styles.error}>{emailError}</Text>}
-            <TextInput
-              style={styles.input}
-              placeholder="Número de identificación"
-              keyboardType='number-pad'
-              value={number}
-              onChangeText={setNumber}
-              onBlur={validateNumber}
-            />
-            {numberError && <Text style={styles.error}>{numberError}</Text>}
+            <View style={styles.cont_1}>
+              <TextInput
+                style={styles.input}
+                placeholder="Correo electrónico"
+                value={email}
+                onChangeText={setEmail}
+                onBlur={validateEmail}
+              />
+              {emailError && <Text style={styles.error}>{emailError}</Text>}
+              <TextInput
+                style={styles.input}
+                placeholder="Número de identificación"
+                keyboardType='number-pad'
+                value={number}
+                onChangeText={setNumber}
+                onBlur={validateNumber}
+              />
+              {numberError && <Text style={styles.error}>{numberError}</Text>}
+            </View>
             <View style={styles.separator} />
-            <Pressable
-            style={styles.btnLogin}
-            onPressIn={handleSubmit}
-            onPressOut={handleStep}
-            >
-              <Text style={styles.btnText}>Recuperar Contraseña</Text>
-            </Pressable>
+            <View style={styles.cont_2}>
+              <Pressable
+              style={styles.btnLogin}
+              onPressIn={handleSubmit}
+              onPressOut={handleStep}
+              >
+                <Text style={styles.btnText}>Recuperar Contraseña</Text>
+              </Pressable>
+            </View>
           </View>
           
         )}
 
         {step === 2 && (
-          <View>
+          <View style={styles.container_vista}>
             <View style={styles.contenedor_encabezado}>
               <Text style={styles.title}>Recuperar Contraseña</Text>
               <Text style={styles.subtitle}>Bienvenid@</Text>
+              <View style={{height:8}} />
               <Text style={styles.subtitle}>Por favor, digite la nueva contraseña con la que asegurará su cuenta.</Text>
               <View style={styles.lineaTexto}/>
             </View>
@@ -145,21 +150,25 @@ const RecuperacionContra = ({navigation}) => {
             <View style={styles.separator} />
             <Text style={styles.subtitle}>Bienvenid@</Text>
             <Text style={styles.subtitle}>Por favor, digite la nueva contraseña con la que asegurará su cuenta.</Text> */}
-            <TextInput
-              style={styles.input}
-              placeholder="Nueva contraseña"
-              secureTextEntry
-              value={newPassword}
-              onChangeText={setNewPassword}
-            />
-            {newPasswordError && <Text style={styles.error}>{newPasswordError}</Text>}
+            <View style={styles.cont_1}>
+              <TextInput
+                style={styles.input}
+                placeholder="Nueva contraseña"
+                secureTextEntry
+                value={newPassword}
+                onChangeText={setNewPassword}
+              />
+              {newPasswordError && <Text style={styles.error}>{newPasswordError}</Text>}
+            </View>
             <View style={styles.separator} />
+            <View style={styles.cont_2}>
             <Pressable
-            style={styles.btnLogin}
-            onPressIn={handleSubmit1}
-            onPressOut={handleRecoveryPassword}>
-            <Text style={styles.btnText}>Recuperar Contraseña</Text>
-          </Pressable>
+              style={styles.btnLogin}
+              onPressIn={handleSubmit1}
+              onPressOut={handleRecoveryPassword}>
+              <Text style={styles.btnText}>Recuperar Contraseña</Text>
+            </Pressable>
+            </View>
           </View>
         )}
       </View>
@@ -168,21 +177,30 @@ const RecuperacionContra = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#dddddd9c',
-    paddingTop: 40,
-    padding: 20,
-  },
+  // container: {
+  //   flexDirection: 'row',
+  //   justifyContent: 'space-between',
+  //   backgroundColor: '#dddddd9c',
+  //   paddingTop: 40,
+  //   padding: 20,
+  // },
   container_vista: {
-    justifyContent: 'center',
-    paddingHorizontal: 20,
+    flex: 1,
+    paddingTop: 20,
+    paddingHorizontal: 30,
   },
   contenedor_encabezado: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 5,
     paddingVertical: 20,
     marginBottom: 40,
+  },
+  cont_1 : {
+    flexGrow: 1,
+    justifyContent: 'center',
+  },
+  cont_2 : {
+    flexGrow: 2,
+    justifyContent: 'flex-start',
   },
   // container: {
   //   flex: 1,
@@ -229,13 +247,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#e2e2e2',
     borderWidth: 1,
     borderRadius: 10,
-    marginBottom: 10,
+    marginTop: 20,
     paddingHorizontal: 10,
     paddingLeft: 20,
   },
   error: {
     color: 'red',
-    marginBottom: 15,
+    padding: 10,
   },
   separator: {
     height: 30,

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Dimensions, SafeAreaView, TouchableOpacity, ImageBackground, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { AuthContext } from '../../conext/AuthContext';
 
 let deviceHeight = Dimensions.get('window').height;
 let deviceWidth = Dimensions.get('window').width;
@@ -12,11 +13,25 @@ const InicioSesionScreen = ({navigation}) => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
+
+  const {login} = useContext(AuthContext);
+
+
   const handleLogin = () => {
     if (!emailError && !passwordError) {
       // Aqui se puede agregar la logica para el inicio de sesion
 
-      alert('Haz iniciado sesion');
+      // alert('Haz iniciado sesion');
+
+      login(email, password);
+      // console.log(respLogin);
+      // console.log(respLogin);
+      // if (respLogin === 'Se encontró') {
+      //   console.log('entró');
+      // } else {
+      //   console.log(respLogin);
+      //   alert(respLogin);
+      // }
       
     }
     // alert('Por favor verifique la información digitada y vuelva a intentarlo')
@@ -55,9 +70,9 @@ const InicioSesionScreen = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, }}>
       {/* Barra de navegación */}
-      <View style={styles.container}>
+      {/* <View style={styles.container}>
         <TouchableOpacity onPress={()=>navigation.openDrawer()}>
         <Icon
             name="menu"
@@ -68,7 +83,7 @@ const InicioSesionScreen = ({navigation}) => {
         source={require('../../assets/images/LogoGsA.png')}
         style={{width:37, height:40}}
         />
-      </View>
+      </View> */}
 
       {/* Vista */}
       <View style={styles.container_vista}>
@@ -77,54 +92,67 @@ const InicioSesionScreen = ({navigation}) => {
           <Text style={styles.subtitle}>Inicie sesión en su cuenta dentro del sistema.</Text>
           <View style={styles.lineaTexto}/>
         </View>
-        <TextInput
-          style={styles.input}
-          placeholder="Correo electrónico"
-          value={email}
-          onChangeText={setEmail}
-          onBlur={validateEmail}
-        />
-        {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
-        <TextInput
-          style={styles.input}
-          placeholder="Contraseña"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-          onBlur={validatePassword}
-        />
-        {passwordError ? <Text style={styles.error}>{passwordError}</Text> : null}
+        <View style={styles.cont_1}>
+          <TextInput
+            style={styles.input}
+            placeholder="Correo electrónico"
+            value={email}
+            onChangeText={setEmail}
+            onBlur={validateEmail}
+          />
+          {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
+          <TextInput
+            style={styles.input}
+            placeholder="Contraseña"
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+            onBlur={validatePassword}
+          />
+          {passwordError ? <Text style={styles.error}>{passwordError}</Text> : null}
+        </View>
         <View style={styles.separator} />
-        <Pressable
-          style={styles.btnLogin}
-          onPressIn={handleSubmit}
-          onPressOut={handleLogin}>
-          <Text style={styles.btnText}>Iniciar Sesión</Text>
-        </Pressable>
-        
-        <Pressable style={styles.btnRecupContra}
-          onPress={handleForgotPassword}>
-          <Text style={styles.btnText}>¿Olvidó su contraseña?</Text>
-        </Pressable>
+        <View style={styles.cont_2}>
+          <Pressable
+            style={styles.btnLogin}
+            onPressIn={handleSubmit}
+            onPressOut={handleLogin}>
+            <Text style={styles.btnText}>Iniciar Sesión</Text>
+          </Pressable>
+          <Pressable style={styles.btnRecupContra}
+            onPress={handleForgotPassword}>
+            <Text style={styles.btnText}>¿Olvidó su contraseña?</Text>
+          </Pressable>
+        </View>
       </View>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#dddddd9c',
-    paddingTop: 40,
-    padding: 20,
-  },
+  // container: {
+  //   flexDirection: 'row',
+  //   justifyContent: 'space-between',
+  //   backgroundColor: '#dddddd9c',
+  //   paddingTop: 40,
+  //   padding: 20,
+  // },
   container_vista: {
+    // justifyContent: 'center',
+    flex: 1,
+    paddingTop: 20,
+    paddingHorizontal: 30,
+  },
+  cont_1 : {
+    flexGrow: 1,
     justifyContent: 'center',
-    paddingHorizontal: 20,
+  },
+  cont_2 : {
+    flexGrow: 2,
+    justifyContent: 'flex-start',
   },
   contenedor_encabezado: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingVertical: 20,
     marginBottom: 40,
   },
@@ -157,13 +185,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#e2e2e2',
     borderWidth: 1,
     borderRadius: 10,
-    marginBottom: 10,
+    marginTop: 20,
     paddingHorizontal: 10,
     paddingLeft: 20,
   },
   error: {
     color: 'red',
-    marginBottom: 15,
+    padding: 10,
   },
   separator: {
     height: 30,
@@ -175,7 +203,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 10,
-    marginBottom: 17,
+    marginBottom: 20,
     width: deviceWidth-130,
   },
   btnRecupContra: {

@@ -1,25 +1,27 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import InicioSesionScreen from '../screens/Home/InicioSesionScreen';
-import RecuperacionContra from '../screens/Home/RecuperacionContra';
+
+import ListadoAnuncios from '../screens/Administrador/ListadoAnuncios';
+import EdicionAnuncio from '../screens/Administrador/EdicionAnuncio';
+
 
 
 const Stack = createNativeStackNavigator();
 
-const LoginStack = () => {
+const AnunciosStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown:false}}>
         <Stack.Screen
-          name="Inicio Sesion"
-          component={InicioSesionScreen}
+          name="Listado de anuncios"
+          component={ListadoAnuncios}
         />
         <Stack.Screen
-          name="Recuperacion Contraseña"
-          component={RecuperacionContra}
+          name="Edicion anuncio"
+          component={EdicionAnuncio}
         />
     </Stack.Navigator>
   )
 }
 
-export default LoginStack
+export default AnunciosStack

@@ -3,6 +3,7 @@ import { SafeAreaView, Text, Button, StyleSheet, View, TextInput, ScrollView, Pr
 import { Dropdown } from 'react-native-element-dropdown';
 import Icon from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
+import { BASE_URL } from '../../config';
 
 let deviceHeight = Dimensions.get('window').height;
 let deviceWidth = Dimensions.get('window').width;
@@ -99,25 +100,89 @@ const RegistroScreen = ({navigation}) => {
   const handleRegistro = () => {
     if (!primerNombreError && !primerApellidoError && !emailError && !identificacionError && !claveError && !condicionError) {
       // Aqui se puede agregar la logica para el registro
-
-
-      Alert.alert('¡Hecho!', 'Se ha registrado correctamente', [
-        {
-          text: 'Ok',
-          onPress: () => {
-            setTimeout(() => {
-              navigation.navigate('Iniciar Sesión');
-            }, 100)
-          },
-        }
-      ])
-
+      // Alert.alert('¡Hecho!', 'Se ha registrado correctamente', [
+      //   {
+      //     text: 'Ok',
+      //     onPress: () => {
+      //       setTimeout(() => {
+      //         navigation.navigate('Inicio sesion');
+      //       }, 100)
+      //     },
+      //   }
+      // ])
+      registrar(identificacion, primerNombre, segundoNombre, primerApellido, segundoApellido, email, clave, condicion, condicion1);
       
     }
     // alert('Por favor verifique la información digitada y vuelva a intentarlo')
-
-    
   };
+
+  const registrar = (id_user, nom1_user, nom2_user, ape1_user, ape2_user, correo_sena_user, contrasena, fk_anteced_salud_sel, anteced_salud_inp) => {
+    
+    axios.post(`${BASE_URL}/validar_correo`, {
+      id_user, correo_sena_user
+    })
+    .then(response => {
+      let resp_validacion_correo_id = response.data;
+
+      if (resp_validacion_correo_id == 'Disponible') {
+        var config = {
+          method: 'post',
+          url: `${BASE_URL}/registrarse`,
+          data: {
+            id_user, nom1_user, nom2_user, ape1_user, ape2_user, correo_sena_user, contrasena, fk_anteced_salud_sel, anteced_salud_inp
+          }
+        };
+        axios(config)
+        .then((response) => {
+          let resp = response.data;
+          if (resp == 'Se agregó correctamente el usuario') {
+            Alert.alert('¡Hecho!', 'Se ha registrado correctamente', [
+              {
+                text: 'Ok',
+                onPress: () => {
+                  setTimeout(() => {
+                    navigation.navigate('Inicio sesion');
+                  }, 100)
+                },
+              }
+            ])
+          } else {
+            Alert.alert('Ups!', resp, [
+              {
+                text: 'Ok'
+              }
+            ])
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+      }
+      else {
+        Alert.alert('Ups!', resp_validacion_correo_id, [
+          {
+            text: 'Ok'
+          }
+        ])
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    
+    
+      
+    // axios.post(`${BASE_URL}/registrarse`, {
+    //   id_user, nom1_user, nom2_user, ape1_user, ape2_user, correo_sena_user, contrasena, fk_anteced_salud_sel, anteced_salud_inp
+    // })
+    // .then(response => {
+    //   console.log(response.data);
+    // })
+    // .catch((error) => {
+    //   console.log("error");
+    //   console.log(error);
+    // })
+  }
 
 
   // Selector
@@ -153,7 +218,7 @@ const RegistroScreen = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       {/* Barra de navegación */}
-      <View style={styles.container}>
+      {/* <View style={styles.container}>
         <TouchableOpacity onPress={()=>navigation.openDrawer()}>
         <Icon
             name="menu"
@@ -164,7 +229,7 @@ const RegistroScreen = ({navigation}) => {
         source={require('../../assets/images/LogoGsA.png')}
         style={{width:37, height:40}}
         />
-      </View>
+      </View> */}
 
       {/* Vista */}
       <View style={styles.container_vista}>
@@ -173,7 +238,7 @@ const RegistroScreen = ({navigation}) => {
           <Text style={styles.subtitle}>Regístrese para obtener todas las funcionalidades que este sistema puede ofrecerle</Text>
           <View style={styles.lineaTexto}/>
         </View>
-        <ScrollView style={{marginBottom: 200}} showsHorizontalScrollIndicator={false}>
+        <ScrollView style={{marginBottom: 190}} showsHorizontalScrollIndicator={false}>
           <View style={styles.campo}>
             <TextInput
                 style={styles.input}
@@ -307,15 +372,18 @@ const RegistroScreen = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#dddddd9c',
-    paddingTop: 40,
-    padding: 20,
-  },
+  // container: {
+  //   flexDirection: 'row',
+  //   justifyContent: 'space-between',
+  //   backgroundColor: '#dddddd9c',
+  //   paddingTop: 40,
+  //   padding: 20,
+  // },
   container_vista: {
-    justifyContent: 'center',
+    // flex: 1,
+    // alignContent: 'center',
+    // justifyContent: 'center',
+    paddingTop: 20,
     paddingHorizontal: 20,
   },
   contenedor_encabezado: {
