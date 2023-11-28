@@ -70,7 +70,7 @@ const InicioSesionScreen = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={{flex: 1, }}>
+    <SafeAreaView style={{flex: 1}}>
       {/* Barra de navegación */}
       {/* <View style={styles.container}>
         <TouchableOpacity onPress={()=>navigation.openDrawer()}>
