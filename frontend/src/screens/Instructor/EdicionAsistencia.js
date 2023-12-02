@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView, View, Text, ImageBackground, Image, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import axios from 'axios';
+import { BASE_URL } from '../../config';
 
 let deviceHeight = Dimensions.get('window').height;
 let deviceWidth = Dimensions.get('window').width;
 
 
-const EdicionAsistencia = ({navigation}) => {
+const EdicionAsistencia = ({navigation, route}) => {
+
+  let id_registro_asis = route.params?.id_registro_asis
+
   return (
     <SafeAreaView>
         {/* Barra de navegación */}
@@ -30,6 +35,7 @@ const EdicionAsistencia = ({navigation}) => {
         {/* Vista */}
         <View>
         <Text>EdicionAsistencia</Text>
+        <Text>Id {id_registro_asis}</Text>
         </View>
     </SafeAreaView>
   )

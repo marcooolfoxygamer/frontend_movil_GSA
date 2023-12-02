@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView, View, Text, TouchableOpacity, ImageBackground, Image, Dimensions, StyleSheet, FlatList } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
-import InicioAnunciosListado from '../../components/InicioAnunciosListado';
+import InicioAnunciosListado from '../../components/AnunciosListado';
+import { BASE_URL } from '../../config';
 
 
 let deviceHeight = Dimensions.get('window').height;
@@ -19,7 +20,7 @@ const AnunciosScreen = ({navigation}) => {
     const getAnuncios = () => {
         var config = {
             method: 'get',
-            url: 'http://10.0.2.2:9300/anuncios_listado',
+            url: `${BASE_URL}/anuncios_listado`,
             // headers: {
             //   "Content-Type" : 'application/json',
             // }

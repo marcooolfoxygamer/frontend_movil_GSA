@@ -212,7 +212,7 @@ const EdicionUsuario = ({navigation, route}) => {
 
     var config = {
       method: 'get',
-      url: 'http://10.0.2.2:9300/antecedentes',
+      url: `${BASE_URL}/antecedentes`,
       // headers: {
       //   "Content-Type" : 'application/json',
       // }

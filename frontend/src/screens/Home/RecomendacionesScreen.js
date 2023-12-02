@@ -26,7 +26,7 @@ const RecomendacionesScreen = ({navigation}) => {
       <View style={styles.contenedor_recomendaciones}>
         <ScrollView>
           <View style={styles.contenedor_encabezado}>
-            <Text style={styles.titulo}>Anuncios</Text>
+            <Text style={styles.titulo}>Recomendaciones</Text>
             <Text style={styles.subtitulo}>En la parte inferior encontrará anuncios importantes que el gimnasio tiene para usted</Text>
             <View style={styles.lineaTexto}/>
           </View>
