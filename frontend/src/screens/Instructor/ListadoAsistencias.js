@@ -110,7 +110,7 @@ const ListadoAsistencias = ({navigation}) => {
               data={asistencias}
               keyExtractor={(item) => item.id_registro_asis}
               renderItem={({item}) => <AsistenciasListado item = {item} navigation={navigation} getAsistencias={getAsistencias}/>}
-              style={{backgroundColor: '#dfdfdf'}}
+              style={{backgroundColor: 'rgb(237, 237, 237)'}}
               refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
               }

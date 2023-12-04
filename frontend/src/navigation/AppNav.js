@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeStack from './HomeStack';
 import BienvenidaAprendiz from '../screens/Aprendiz/BienvenidaAprendiz';
-import { AuthContext } from '../conext/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 import AprendizStack from './AprendizStack';
 import InstructorStack from './InstructorStack';
 import AdministradorStack from './AdministradorStack';

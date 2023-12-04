@@ -42,7 +42,7 @@ const EdicionUsuario = ({navigation, route}) => {
   const [primerApellidoError, setPrimerApellidoError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [condicionError, setCondicionError] = useState('');
-  const [estadoUsuarioError, setEstadoUsuarioError] = useState('');
+  // const [estadoUsuarioError, setEstadoUsuarioError] = useState('');
 
 
   // Validaciones
@@ -88,13 +88,13 @@ const EdicionUsuario = ({navigation, route}) => {
     }
   };
 
-  const validateEstadoUsuario = () => {
-    if (!estadoUsuario) {
-      setEstadoUsuarioError('Indicar el estado del usuario dentro del sistema es obligatorio.');
-    } else {
-      setEstadoUsuarioError('');
-    }
-  };
+  // const validateEstadoUsuario = () => {
+  //   if (estadoUsuario != 0 || estadoUsuario != 1) {
+  //     setEstadoUsuarioError('Indicar el estado del usuario dentro del sistema es obligatorio.');
+  //   } else {
+  //     setEstadoUsuarioError('');
+  //   }
+  // };
 
   // En submit
   const handleSubmit = () => {
@@ -103,11 +103,11 @@ const EdicionUsuario = ({navigation, route}) => {
     validatePApellido();
     validateEmail(),
     validateCondicion();
-    validateEstadoUsuario();
+    // validateEstadoUsuario();
   };
 
   const handleEdicion = () => {
-    if (!tipoUsuarioError && !primerNombreError && !primerApellidoError && !emailError && !condicionError && !estadoUsuarioError) {
+    if (!tipoUsuarioError && !primerNombreError && !primerApellidoError && !emailError && !condicionError) {
 
       editar(tipoUsuario, primerNombre, segundoNombre, primerApellido, segundoApellido, email, condicion, condicion1, estadoUsuario);
     }
@@ -401,11 +401,11 @@ const EdicionUsuario = ({navigation, route}) => {
                   setEstadoUsuario(item.value);
                   setIsFocus(false);
                 }}
-                onBlur={() => {setIsFocus(false), validateEstadoUsuario()}}
+                onBlur={() => {setIsFocus(false)}}
               />
-              { estadoUsuarioError ? <View style={styles.error}>
+              {/* { estadoUsuarioError ? <View style={styles.error}>
                   <Text style={styles.errorText}>{estadoUsuarioError}</Text>
-              </View> : null }
+              </View> : null } */}
             </View>
             
             <Pressable

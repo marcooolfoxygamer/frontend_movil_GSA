@@ -3,7 +3,7 @@ import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native'
 import {DrawerContentScrollView, DrawerItem, DrawerItemList} from '@react-navigation/drawer'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { AuthContext } from '../conext/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 
 const CustomDrawer = (props) => {
 

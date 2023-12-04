@@ -6,7 +6,7 @@ import 'react-native-gesture-handler';
 
 // import AuthStack from './src/navigation/AuthStack';
 import HomeStack from './src/navigation/HomeStack';
-import { AuthProvider } from './src/conext/AuthContext';
+import { AuthProvider } from './src/context/AuthContext';
 import AppNav from './src/navigation/AppNav';
 
 // const Stack = createNativeStackNavigator();

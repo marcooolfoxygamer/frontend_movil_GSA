@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Dimensions, SafeAreaView, TouchableOpacity, ImageBackground, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { AuthContext } from '../../conext/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
 let deviceHeight = Dimensions.get('window').height;
 let deviceWidth = Dimensions.get('window').width;
