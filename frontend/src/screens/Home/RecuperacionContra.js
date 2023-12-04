@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Pressable, Dimensions, SafeAreaView, TouchableOpacity, ImageBackground, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { BASE_URL } from '../../config';
+import axios from 'axios';
 
 let deviceHeight = Dimensions.get('window').height;
 let deviceWidth = Dimensions.get('window').width;
@@ -17,24 +19,73 @@ const RecuperacionContra = ({navigation}) => {
 
   const handleStep = () => {
     if (!emailError && !numberError) {
-      setStep(2);
+      var config = {
+        method: 'post',
+        url: `${BASE_URL}/validar_rec_contrasena`,
+        data: {
+          id_user: number, correo_sena_user: email
+        }
+      };
+
+      axios(config)
+      .then(function (response) {
+        if (response.data == 'Se encontró') {
+          setStep(2);
+        }
+        else {
+          Alert.alert('Ups!', 'Alguno de los datos ingresados no coincide con los datos existentes en el sistema.\nPor favor, inténtelo de nuevo', [
+            {
+              text: 'Ok',
+              // onPress: () => {
+              //   setTimeout(() => {
+              //     navigation.navigate('Listado de asistencias');
+              //   }, 100)
+              // }
+            }
+          ])
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     }
   };
 
   const handleRecoveryPassword = () => {
-    validateNewpassword();
+    // validateNewpassword();
     if (!newPasswordError) {
-
-      Alert.alert('¡Hecho!', 'Se actualizó correctamente la contraseña', [    // Sustituir por respuesta de la bd
-        {
-          text: 'Ok',
-          onPress: () => {
-            setTimeout(() => {
-              navigation.navigate('Inicio sesion');
-            }, 100)
-          },
+      var config = {
+        method: 'put',
+        url: `${BASE_URL}/validar_rec_contrasena/${number}`,
+        data: {
+          contrasena: newPassword
         }
-      ])
+      };
+      axios(config)
+      .then((response) => {
+        let resp = response.data;
+        if (resp == `Se actualizó correctamente la contraseña`) {
+          Alert.alert('¡Hecho!', 'Se actualizó correctamente la contraseña', [
+            {
+              text: 'Ok',
+              onPress: () => {
+                setTimeout(() => {
+                  navigation.navigate('Inicio sesion');
+                }, 100)
+              },
+            }
+          ])
+        } else {
+          Alert.alert('Ups!', 'Un error ocurrió. Por favor, inténtelo de nuevo', [
+            {
+              text: 'Ok'
+            }
+          ])
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
     }
   };
 
@@ -157,6 +208,7 @@ const RecuperacionContra = ({navigation}) => {
                 secureTextEntry
                 value={newPassword}
                 onChangeText={setNewPassword}
+                onBlur={validateNewpassword}
               />
               {newPasswordError && <Text style={styles.error}>{newPasswordError}</Text>}
             </View>
