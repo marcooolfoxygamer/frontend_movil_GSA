@@ -254,116 +254,111 @@ const EdicionAsistencia = ({navigation, route}) => {
             <Text style={styles.subtitle}>Edita los datos del registro de asistencia</Text>
             <View style={styles.lineaTexto}/>
           </View>
-          <ScrollView 
+          {/* <ScrollView 
             showsHorizontalScrollIndicator={false}
             style={styles.scrollv}
-          >
-            <View style={styles.campo}>
-              <TextInput
-                  style={styles.input}
-                  placeholder='Identificación del Instructor'
-                  placeholderTextColor={'#666'}
-                  keyboardType='number-pad'
-                  value={idInstrucAsis.toString()}
-                  onChangeText={setIdInstrucAsis}
-                  onBlur={validateIdInstrucAsis}
-                  maxLength={15}
-              />
-              { idInstrucAsisError ? <View style={styles.error}>
-                  <Text style={styles.errorText}>{idInstrucAsisError}</Text>
-              </View> : null }
-            </View>
-            <View style={styles.campo}>
-              <TextInput
-                  style={styles.input}
-                  placeholder='Identificación del Aprendiz'
-                  placeholderTextColor={'#666'}
-                  keyboardType='number-pad'
-                  value={idAprendAsis.toString()}
-                  onChangeText={setIdAprendAsis}
-                  onBlur={validateIdAprendAsis}
-                  maxLength={15}
-              />
-              { idAprendAsisError ? <View style={styles.error}>
-                  <Text style={styles.errorText}>{idAprendAsisError}</Text>
-              </View> : null }
-            </View>
-            <View style={styles.campo}>
-              {/* <View> */}
-              {/* <View style={styles.input}> */}
-
-                {/* <Ionicons
-                  name='calendar-outline'
-                  size={20}
-                  color="#666"
-                  style={{marginRight: 5}}
-                /> */}
-                {/* <TouchableOpacity onPress={() => setOpen(true)}>
-                  <Text style={{color: 'rgb(115, 115, 115)', marginLeft: 5, marginTop: 5}}>Fecha</Text>
-                </TouchableOpacity> */}
-
-              {/* </View> */}
-              {/* <DatePicker
-                // modal
-                open={openn}
-                date={datee}
-                mode={'date'}
-                onConfirm={(date) => {
-                  setOpen(false)
-                  setDate(date)
-                }}
-                onCancel={() => {
-                  setOpen(false)
-                }}
-              /> */}
-
-              { showPicker && (
-                <DateTimePicker
-                  mode='date'
-                  display='spinner'
-                  value={date}
-                  onChange={onChangePicker}
-                />
-              )}
-              {/* { !showPicker && ( */}
-                < Pressable
-                  onPress={toggleDatePicker}
-                >
-                  <TextInput
-                    style={styles.input}
-                    placeholder='Fecha'
+          > */}
+            <View style={styles.cont_1}>
+              <View style={styles.campo}>
+                <TextInput
+                    style={[styles.input, styles.textInp]}
+                    placeholder='Identificación del Instructor'
                     placeholderTextColor={'#666'}
-                    value={fechaAsis}
-                    onChangeText={setFechaAsis}
-                    onBlur={validateFechaAsis}
-                    editable={false}
+                    keyboardType='number-pad'
+                    value={idInstrucAsis.toString()}
+                    onChangeText={setIdInstrucAsis}
+                    onBlur={validateIdInstrucAsis}
+                    maxLength={15}
+                />
+                { idInstrucAsisError ? <View style={styles.error}>
+                    <Text style={styles.errorText}>{idInstrucAsisError}</Text>
+                </View> : null }
+              </View>
+              <View style={styles.campo}>
+                <TextInput
+                    style={[styles.input, styles.textInp]}
+                    placeholder='Identificación del Aprendiz'
+                    placeholderTextColor={'#666'}
+                    keyboardType='number-pad'
+                    value={idAprendAsis.toString()}
+                    onChangeText={setIdAprendAsis}
+                    onBlur={validateIdAprendAsis}
+                    maxLength={15}
+                />
+                { idAprendAsisError ? <View style={styles.error}>
+                    <Text style={styles.errorText}>{idAprendAsisError}</Text>
+                </View> : null }
+              </View>
+              <View style={styles.campo}>
+                {/* <View> */}
+                {/* <View style={styles.input}> */}
+
+                  {/* <Ionicons
+                    name='calendar-outline'
+                    size={20}
+                    color="#666"
+                    style={{marginRight: 5}}
+                  /> */}
+                  {/* <TouchableOpacity onPress={() => setOpen(true)}>
+                    <Text style={{color: 'rgb(115, 115, 115)', marginLeft: 5, marginTop: 5}}>Fecha</Text>
+                  </TouchableOpacity> */}
+
+                {/* </View> */}
+                {/* <DatePicker
+                  // modal
+                  open={openn}
+                  date={datee}
+                  mode={'date'}
+                  onConfirm={(date) => {
+                    setOpen(false)
+                    setDate(date)
+                  }}
+                  onCancel={() => {
+                    setOpen(false)
+                  }}
+                /> */}
+
+                { showPicker && (
+                  <DateTimePicker
+                    mode='date'
+                    display='spinner'
+                    value={date}
+                    onChange={onChangePicker}
                   />
-                </Pressable>
-              {/* )} */}
+                )}
+                {/* { !showPicker && ( */}
+                  < Pressable
+                    onPress={toggleDatePicker}
+                  >
+                    <TextInput
+                      style={[styles.input, styles.textInp]}
+                      placeholder='Fecha'
+                      placeholderTextColor={'#b2b2b2'}
+                      value={fechaAsis}
+                      onChangeText={setFechaAsis}
+                      onBlur={validateFechaAsis}
+                      editable={false}
+                      // icon={Ionicons}
+                    />
+                  </Pressable>
+                {/* )} */}
 
-              { fechaAsisError ? <View style={styles.error}>
-                  <Text style={styles.errorText}>{fechaAsisError}</Text>
-              </View> : null }
-
+                { fechaAsisError ? <View style={styles.error}>
+                    <Text style={styles.errorText}>{fechaAsisError}</Text>
+                </View> : null }
+              </View>
             </View>
-            {/* <View style={styles.campo}>
-              <TextInput
-                  style={[styles.input, styles.condicion1Input]}
-                  placeholder='¿Su condición médica no aparece? Descríbalas aquí'
-                  placeholderTextColor={'#666'}
-                  value={condicion1}
-                  onChangeText={setCondicion1}
-                  />
-            </View> */}
-            
-            <Pressable
-              style={styles.btnActualizar}
-              onPressIn={handleSubmit}
-              onPressOut={handleEdicion}
-            >
-              <Text style={styles.TextActualizar}>Actualizar registro</Text>
-            </Pressable>
-          </ScrollView>
+            <View style={styles.separator} />
+            <View style={styles.cont_2}>
+              <Pressable
+                style={styles.btnActualizar}
+                onPressIn={handleSubmit}
+                onPressOut={handleEdicion}
+              >
+                <Text style={styles.TextActualizar}>Actualizar registro</Text>
+              </Pressable>
+            </View>
+          {/* </ScrollView> */}
         </View>
     </SafeAreaView>
   )
@@ -378,9 +373,18 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   container_vista: {
+    flex: 1,
     backgroundColor: '#ffffffee',
     // paddingTop: 20,s
     paddingHorizontal: 20,
+  },
+  cont_1 : {
+    flexGrow: 1,
+    justifyContent: 'center',
+  },
+  cont_2 : {
+    flexGrow: 2,
+    justifyContent: 'flex-start',
   },
   contenedor_encabezado: {
     paddingHorizontal: 10,
@@ -410,14 +414,17 @@ const styles = StyleSheet.create({
     height: 2,
     backgroundColor: '#7ED321'
   },
-  scrollv: {
-    // flex: 1,
-    // flexDirection: 'column',
-    // alignContent: 'center',
-    // justifyContent: 'center',
-    height: '100%',
-    // backgroundColor: 'orange',
+  separator: {
+    height: 30,
   },
+  // scrollv: {
+  //   // flex: 1,
+  //   // flexDirection: 'column',
+  //   // alignContent: 'center',
+  //   // justifyContent: 'center',
+  //   height: '100%',
+  //   // backgroundColor: 'orange',
+  // },
   campo: {
     // marginTop: 10,
     height: 'auto',
@@ -436,7 +443,9 @@ const styles = StyleSheet.create({
     padding:15,
     borderRadius: 10,
   },
-
+  textInp: {
+    color: '#5a5a5a',
+  },
   dropdown: {
     height: 50,
     borderColor: '#e2e2e2',
@@ -490,7 +499,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 10,
-    marginBottom: 45,
+    // marginTop: 45,
     width: deviceWidth-130,
   },
   
