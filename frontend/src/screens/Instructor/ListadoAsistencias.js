@@ -88,7 +88,7 @@ const ListadoAsistencias = ({navigation}) => {
         <View style={styles.contenedor_encabezado}>
           <Text style={styles.titulo}>Listado de asistencia</Text>
           <Text style={styles.subtitulo}>En este espacio tiene completo acceso a la lista de aprendices que han desarrollado actividades en el gimnasio</Text>
-          <Text style={styles.subtitulo}>Puede actualizar información si así lo requiere...</Text>
+          <Text style={[styles.subtitulo, {marginTop: 8}]}>Puede actualizar información si así lo requiere...</Text>
           <View style={styles.lineaTexto}/>
         </View>            
         {/* <View style={styles.contenedor_asistencia}> */}
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   },
   subtitulo: {
       fontFamily:'sans-serif',
-      fontSize: 15,
+      fontSize: 13,
       textAlign: 'center',
       lineHeight: 23,
   },

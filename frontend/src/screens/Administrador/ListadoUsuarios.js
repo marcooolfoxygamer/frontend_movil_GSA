@@ -1,34 +1,90 @@
-import React from 'react'
-import { SafeAreaView, View, Text, ImageBackground, Image, Dimensions, StyleSheet, TouchableOpacity, Pressable } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react'
+import { SafeAreaView, View, Text, ImageBackground, Image, Dimensions, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import axios from 'axios';
+import { BASE_URL } from '../../config';
+import { RefreshControl } from 'react-native-gesture-handler';
+import UsuariosListado from '../../components/UsuariosListado';
 
 let deviceHeight = Dimensions.get('window').height;
 let deviceWidth = Dimensions.get('window').width;
 
 
 const ListadoUsuarios = ({navigation}) => {
-  return (
-    <SafeAreaView>
-        {/* Barra de navegación */}
-        <View style={styles.container}>
-          <TouchableOpacity onPress={()=>{
-            // navigation.dispatch(DrawerActions.openDrawer())
-            navigation.openDrawer();
-            }
-          }>
-          <Icon
-              name="menu"
-              size={40}
-          />
-          </TouchableOpacity>
-          <ImageBackground
-          source={require('../../assets/images/LogoGsA.png')}
-          style={{width:37, height:40}}
-          />
-        </View>
 
-        {/* Vista */}
-        <View>
+  const [usuarios, setUsuarios] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    getUsuarios();
+  }, []);
+
+  const getUsuarios = () => {
+    var config = {
+      method: 'get',
+      url: `${BASE_URL}/usuarios_listado`,
+    };
+
+    axios(config)
+    .then(function (response) {
+      // if (response.length > 0) {
+        setUsuarios(response.data);
+      // }
+    })
+    .catch(function (error) {
+    console.log(error);
+    });
+  }
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);  
+    setTimeout(() => {
+      getUsuarios();
+      setRefreshing(false);
+    }, 200);
+  }, []);
+
+  return (
+    <SafeAreaView style={{flex:1}}>
+      {/* Barra de navegación */}
+      <View style={styles.container}>
+        <TouchableOpacity onPress={()=>{
+          // navigation.dispatch(DrawerActions.openDrawer())
+          navigation.openDrawer();
+          }
+        }>
+        <Icon
+            name="menu"
+            size={40}
+        />
+        </TouchableOpacity>
+        <ImageBackground
+        source={require('../../assets/images/LogoGsA.png')}
+        style={{width:37, height:40}}
+        />
+      </View>
+
+      {/* Vista */}
+      <View style={styles.contenedor_encabezado}>
+        <Text style={styles.titulo}>Listado de usuarios</Text>
+        <Text style={styles.subtitulo}>En este espacio tiene completo acceso a la lista de usuarios registrados en el sistema</Text>
+        <Text style={[styles.subtitulo, {marginTop: 8}]}>Puede actualizar información si así lo requiere...</Text>
+        <View style={styles.lineaTexto}/>
+      </View>
+      {/* <View style={styles.tableContainer}> */}
+        <FlatList
+          data={usuarios}
+          keyExtractor={(item) => item.id_user}
+          renderItem={({item, index}) => <UsuariosListado item={item} navigation={navigation}/>}
+          style={{backgroundColor: 'rgb(237, 237, 237)'}}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        />
+      {/* </View> */}
+
+
+        {/* <View>
           <Text>ListadoUsuarios</Text>
           <Pressable
             style={styles.btnEdicion}
@@ -36,19 +92,52 @@ const ListadoUsuarios = ({navigation}) => {
           >
             <Text style={styles.textoEdicion}>Editar</Text>
           </Pressable>
-        </View>
+        </View> */}
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      backgroundColor: '#dddddd9c',
-      paddingTop: 40,
-      padding: 20,
-    },
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: '#dddddd9c',
+    paddingTop: 40,
+    padding: 20,
+  },
+  contenedor_encabezado: {
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+  },
+  titulo: {
+    fontFamily:'sans-serif',
+    fontSize: 26,
+    textAlign: 'center',
+    fontWeight: '800',
+    marginVertical: 18,
+  },
+  subtitulo: {
+    fontFamily:'sans-serif',
+    fontSize: 13,
+    textAlign: 'center',
+    lineHeight: 23,
+  },
+  lineaTexto: {
+    marginTop: 15,
+    alignSelf: 'center',
+    width: 50,
+    height: 2,
+    backgroundColor: '#7ED321'
+  },
+  // tableContainer: {
+  //   borderWidth: 1,
+  //   borderRadius: 8,
+  //   overflow: 'hidden',
+  //   marginHorizontal: -5,
+  //   marginBottom: 20,
+  //   marginTop: 10,
+  //   paddingVertical: 10,
+  // },
     // container_vista: {
     //   // justifyContent: 'center',
     //   flex: 1,
@@ -133,18 +222,18 @@ const styles = StyleSheet.create({
     //   fontWeight: '800',
     //   fontSize: 16,
     // }
-  btnEdicion: {
-    justifyContent: 'center',
-    alignContent: 'center',
-    backgroundColor: 'rgb(220, 161, 12)',
-    height: 30,
-    width: 60,
-    borderRadius: 8,
-    paddingBottom: 2,
-  },
-  textoEdicion: {
-    textAlign: 'center',
-  }
+  // btnEdicion: {
+  //   justifyContent: 'center',
+  //   alignContent: 'center',
+  //   backgroundColor: 'rgb(220, 161, 12)',
+  //   height: 30,
+  //   width: 60,
+  //   borderRadius: 8,
+  //   paddingBottom: 2,
+  // },
+  // textoEdicion: {
+  //   textAlign: 'center',
+  // }
 });
   
 
