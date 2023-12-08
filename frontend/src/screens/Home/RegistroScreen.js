@@ -342,7 +342,7 @@ const RegistroScreen = ({navigation}) => {
                 setCondicion(item.value);
                 setIsFocus(false);
               }}
-              onBlur={() => {setIsFocus(false), validateCondicion()}}
+              onBlur={() => {setIsFocus(false)}}
             />
             { condicionError ? <View style={styles.error}>
                 <Text style={styles.errorText}>{condicionError}</Text>
