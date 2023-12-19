@@ -11,7 +11,7 @@ const EjerciciosPorMusculoListado = ({ navigation, item }) => {
 
     const { pkfk_musculo, pkfk_ejercicio, imagen_ejerc } = item
 
-    let url_img = `${BASE_URL}/images/ejercicios/`;
+    let url_img = `${BASE_URL}/images/ejercicios_gifs/`;
     // console.log('url', BASE_URL+img_anunc);
     // let imagen = '../assets/images/anuncios/'+imagen_ejerc;
 

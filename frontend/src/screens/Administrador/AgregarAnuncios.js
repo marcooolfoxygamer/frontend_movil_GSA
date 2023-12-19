@@ -47,7 +47,7 @@ const AgregarAnuncios = ({navigation}) => {
   // Validaciones
   const validateImagen = () => {
     if (!imagen) {
-      setImagenError('Por favor, incerte la imagen del anuncio');
+      setImagenError('Por favor, inserte la imagen del anuncio');
     } else {
       setImagenError('');
     }
@@ -110,7 +110,6 @@ const AgregarAnuncios = ({navigation}) => {
           let nomb_img_con_comillas = respuestaSubida.body
           let nomb_img = nomb_img_con_comillas.replace(/['"]+/g, '')
           setImagen(nomb_img)
-          console.log(nomb_img);
           setImagenCorrecta("Se ha subido la imagen correctamente")
         }
       }

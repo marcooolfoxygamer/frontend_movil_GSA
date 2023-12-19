@@ -28,8 +28,6 @@ const EdicionAnuncio = ({navigation, route}) => {
   // Campos originales de corroboración
   let [idAdminAnuncOriginal, setIdAdminAnuncOriginal] = useState('');
   let [imagenOriginal, setImagenOriginal] = useState('');
-  let [tituloOriginal, setTituloOriginal] = useState('');
-  let [descripcionOriginal, setDescripcionOriginal] = useState('');
   let [estadoAnuncOriginal, setEstadoAnuncOriginal] = useState('');
 
   // Errores
@@ -43,7 +41,7 @@ const EdicionAnuncio = ({navigation, route}) => {
   // Validaciones
   const validateImagen = () => {
     if (!imagen) {
-      setImagenError('Por favor, incerte la imagen del anuncio');
+      setImagenError('Por favor, inserte la imagen del anuncio');
     } else {
       setImagenError('');
     }
@@ -111,11 +109,11 @@ const EdicionAnuncio = ({navigation, route}) => {
         }
       }
       catch {
-        setImagenError('Por favor, inserte la imagen del anuncio');
+        // setImagenError('Por favor, inserte la imagen del anuncio');
       }
     }
     catch {
-      setImagenError('Por favor, inserte la imagen del anuncio');
+      // setImagenError('Por favor, inserte la imagen del anuncio');
     }
   }
 
@@ -126,7 +124,7 @@ const EdicionAnuncio = ({navigation, route}) => {
     validateDescripcion();
   };
 
-  const handleCreacion = () => {
+  const handleEdicion = () => {
     if (!imagenError && !tituloError && !descripcionError) {
 
       if (idUser != idAdminAnuncOriginal) {
@@ -148,62 +146,98 @@ const EdicionAnuncio = ({navigation, route}) => {
 
   const editarAnuncio = (fk_id_admin_anunc, titulo_anunc, desc_anunc, img_anunc, estado_anunc) => {
 
-    var config = {
-      method: 'get',
-      url: `${BASE_URL}/anuncios_imagenes/${img_anunc}`,
-    };
-    axios(config)
-    .then((response) => {
-      let resp = response.data;
-      if (resp == 'No hay registros') {
-        
-        // Actualizar el anuncio
-        var config_reg = {
-          method: 'post',
-          url: `${BASE_URL}/anuncios_agregar`,
-          data: {
-            fk_id_admin_anunc, titulo_anunc, desc_anunc, img_anunc, estado_anunc
-          }
-        };
-        axios(config_reg)
-        .then((response2) => {
-          let resp2 = response2.data;
-          if (resp2 == 'Se actualizó correctamente el anuncio') {
-            Alert.alert('¡Hecho!', 'Se ha actualizado correctamente el anuncio', [
-              {
-                text: 'Ok',
-                onPress: () => {
-                  setTimeout(() => {
-                    navigation.navigate('Listado de anuncios');
-                  }, 100)
-                },
-              }
-            ])
-          } else {
-            Alert.alert('Ups!', resp2, [
-              {
-                text: 'Ok'
-              }
-            ])
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        
 
-      } else {
-        setImagenError('Por favor, cambie el nombre de la imagen del anuncio ya que tenemos una con el mismo nombre');
-        // Alert.alert('Ups!', resp, [
-        //   {
-        //     text: 'Ok'
-        //   }
-        // ])
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+    // Corroboración imagen del anuncio (si fue agregada o si es la original del anuncio)
+    if (imagenOriginal == img_anunc) {
+
+      // Actualizar el anuncio
+      var config_edicion = {
+        method: 'put',
+        url: `${BASE_URL}/anuncios_edicion/${id_anunc}`,
+        data: {
+          fk_id_admin_anunc, titulo_anunc, desc_anunc, img_anunc, estado_anunc
+        }
+      };
+      axios(config_edicion)
+      .then((response2) => {
+        let resp2 = response2.data;
+        if (resp2 == 'Se actualizó correctamente el anuncio') {
+          Alert.alert('¡Hecho!', 'Se ha actualizado correctamente el anuncio', [
+            {
+              text: 'Ok',
+              onPress: () => {
+                setTimeout(() => {
+                  navigation.navigate('Listado de anuncios');
+                }, 100)
+              },
+            }
+          ])
+        } else {
+          Alert.alert('Ups!', resp2, [
+            {
+              text: 'Ok'
+            }
+          ])
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+
+    } else {
+
+      var config = {
+        method: 'get',
+        url: `${BASE_URL}/anuncios_imagenes/${img_anunc}`,
+      };
+      axios(config)
+      .then((response) => {
+        let resp = response.data;
+        if (resp == 'No hay registros') {
+          
+          // Actualizar el anuncio
+          var config_edicion = {
+            method: 'put',
+            url: `${BASE_URL}/anuncios_edicion/${id_anunc}`,
+            data: {
+              fk_id_admin_anunc, titulo_anunc, desc_anunc, img_anunc, estado_anunc
+            }
+          };
+          axios(config_edicion)
+          .then((response2) => {
+            let resp2 = response2.data;
+            if (resp2 == 'Se actualizó correctamente el anuncio') {
+              Alert.alert('¡Hecho!', 'Se ha actualizado correctamente el anuncio', [
+                {
+                  text: 'Ok',
+                  onPress: () => {
+                    setTimeout(() => {
+                      navigation.navigate('Listado de anuncios');
+                    }, 100)
+                  },
+                }
+              ])
+            } else {
+              Alert.alert('Ups!', resp2, [
+                {
+                  text: 'Ok'
+                }
+              ])
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+          
+  
+        } else {
+          setImagenError('Por favor, cambie el nombre de la imagen del anuncio ya que tenemos una con el mismo nombre');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    }
   }
 
   useEffect(() => {
@@ -220,22 +254,18 @@ const EdicionAnuncio = ({navigation, route}) => {
       // console.log(JSON.stringify(response.data));
 
       let campo_resp = response.data[0];
-      // setIdInstrucAsis(campo_resp.fk_id_admin_anunc);
       setIdAdminAnuncOriginal(campo_resp.fk_id_admin_anunc);
 
       
 
       setImagen(campo_resp.img_anunc);
       setImagenOriginal(campo_resp.img_anunc);
+      setImagenCorrecta("El anuncio tendrá la misma imagen con la que se creó.\nSi desea cambiarla seleccione una nueva.");
 
       setTitulo(campo_resp.titulo_anunc);
-      setTituloOriginal(campo_resp.titulo_anunc);
 
       setDescripcion(campo_resp.desc_anunc);
-      setDescripcionOriginal(campo_resp.desc_anunc);
-
       
-
       setEstadoAnuncOriginal(campo_resp.estado_anunc);
     })
     .catch(function (error) {
@@ -274,14 +304,6 @@ const EdicionAnuncio = ({navigation, route}) => {
           <ScrollView>
             <View style={styles.cont_1}>
               <View style={styles.campo}>
-                {/* <TextInput
-                  style={styles.input}
-                  placeholder='Imagen'
-                  placeholderTextColor={'#666'}
-                  value={imagen}
-                  onChangeText={setImagen}
-                  onBlur={validateImagen}
-                /> */}
                 <Pressable
                   style={styles.input}
                   onPress={() => imagenGuardarHandler()}
@@ -327,7 +349,7 @@ const EdicionAnuncio = ({navigation, route}) => {
               <Pressable
                 style={styles.btnEditar}
                 onPressIn={handleSubmit}
-                onPressOut={handleCreacion}
+                onPressOut={handleEdicion}
               >
                 <Text style={styles.TextEditar}>Actualizar</Text>
               </Pressable>
